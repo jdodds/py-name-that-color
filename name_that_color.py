@@ -104,11 +104,22 @@ class NameThatColor(object):
                    int(lightness * 255))
 
 if __name__ == '__main__':
-    import os, json, sys
-    csv_file = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)),
-        'data', 'colors.csv')
-    Namer = NameThatColor(csv_file)
-    color = sys.argv[1]
-    print json.dumps(Namer.name(color))
+    import os, json, sys, argparse
+
+    parser = argparse.ArgumentParser(
+        description="Find the closest known human readable color name for a hex value")
+
+    parser.add_argument('-c', '--colors', dest='colors_file',
+                        default=os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                             'data', 'colors.csv'),
+                        help="a csv file containing known color name definitions")
+
+    parser.add_argument('target',
+                        help="hex value of the color to search for")
+
+    args = parser.parse_args()
+
+    
+    Namer = NameThatColor(args.colors_file)
+    print json.dumps(Namer.name(args.target))
     
