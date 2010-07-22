@@ -106,6 +106,13 @@ class NameThatColor(object):
 if __name__ == '__main__':
     import os, json, sys, argparse
 
+    output_choices = {
+        'match_hex': lambda m: m.hex_value,
+        'match_name': lambda m: m.name,
+        'is_exact': lambda m: m.exact,
+        'original_hex': lambda m: m.original
+    }
+    
     parser = argparse.ArgumentParser(
         description="Find the closest known human readable color name for a hex value")
 
@@ -117,9 +124,22 @@ if __name__ == '__main__':
     parser.add_argument('target',
                         help="hex value of the color to search for")
 
+    parser.add_argument('-o', '--output',
+                        dest="output",
+                        nargs='*',
+                        choices=output_choices.keys(),
+                        default=['match_hex', 'match_name'],
+                        help="what information about the color match to output")
+
+                        
+
     args = parser.parse_args()
 
     
     Namer = NameThatColor(args.colors_file)
-    print json.dumps(Namer.name(args.target))
+    match = Namer.name(args.target)
+    result = {}
+    for choice in args.output:
+        result[choice] = output_choices[choice](match)
+    print json.dumps(result)
     
