@@ -22,7 +22,7 @@ class NameThatColor(object):
     def name(self, color):
         color = color.upper()
 
-        if not 3 < len(color) < 7:
+        if not 3 < len(color) < 8:
             return Match("#000000", "Invalid Color", False, color)
         elif len(color) % 3 == 0:
             color = "#" + color
@@ -42,7 +42,7 @@ class NameThatColor(object):
         df = -1
 
         for info in self.color_info:
-            if color[1:] == info.hex_value:
+            if color == info.hex_value:
                 return Match(info.hex_value, info.name, True, color)
 
             ndf1 = (((red - info.red) ** 2) +
