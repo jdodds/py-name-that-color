@@ -8,9 +8,13 @@ RGB = namedtuple('RGB', 'red green blue')
 HSL = namedtuple('HSL', 'hue saturation lightness')
 
 class NameThatColor(object):
-    def __init__(self, colorfile):
+    def __init__(self, colorfile=None):
+        if not colorfile:
+            colorfile=os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                   'data', 'colors.csv')
         import csv
         self.color_info = []
+
         reader = csv.reader(open(colorfile))
         for hex_val, name in reader:
             red, green, blue = self.rgb(hex_val)
@@ -122,8 +126,6 @@ if __name__ == '__main__':
         description="Find the closest known human readable color name for a hex value")
 
     parser.add_argument('-c', '--colors', dest='colors_file',
-                        default=os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                             'data', 'colors.csv'),
                         help="a csv file containing known color name definitions")
 
     parser.add_argument('target',
@@ -145,7 +147,6 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    
     Namer = NameThatColor(args.colors_file)
     match = Namer.name(args.target)
     result = {}
