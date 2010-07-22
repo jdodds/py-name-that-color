@@ -112,6 +112,11 @@ if __name__ == '__main__':
         'is_exact': lambda m: m.exact,
         'original_hex': lambda m: m.original
     }
+
+    format_choices = {
+        'json': lambda r: json.dumps(r),
+        'raw' : lambda r: r
+    }
     
     parser = argparse.ArgumentParser(
         description="Find the closest known human readable color name for a hex value")
@@ -131,6 +136,11 @@ if __name__ == '__main__':
                         default=['match_hex', 'match_name'],
                         help="what information about the color match to output")
 
+    parser.add_argument('--format',
+                        dest="format",
+                        choices=format_choices.keys(),
+                        default="json",
+                        help="what format to return data in")
                         
 
     args = parser.parse_args()
@@ -141,5 +151,5 @@ if __name__ == '__main__':
     result = {}
     for choice in args.output:
         result[choice] = output_choices[choice](match)
-    print json.dumps(result)
+    print format_choices[args.format](result)
     
