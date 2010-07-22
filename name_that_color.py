@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from collections import namedtuple
-
+import os
 ColorInfo = namedtuple('ColorInfo',
                        'hex_value name red green blue hue saturation lightness')
 Match = namedtuple('Match', 'hex_value name exact original')
@@ -108,7 +108,7 @@ class NameThatColor(object):
                    int(lightness * 255))
 
 if __name__ == '__main__':
-    import os, json, sys, argparse
+    import json, sys, argparse
 
     output_choices = {
         'match_hex': lambda m: m.hex_value,
