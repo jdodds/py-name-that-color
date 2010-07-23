@@ -17,9 +17,9 @@ class NameThatColor(object):
 
         reader = csv.reader(open(colorfile))
         for hex_val, name in reader:
-            red, green, blue = self.rgb(hex_val)
-            hue, saturation, lightness = self.hsl(hex_val)
-            self.color_info.append(ColorInfo(hex_val, name,
+            red, green, blue = self.rgb(hex_val.strip())
+            hue, saturation, lightness = self.hsl(hex_val.strip())
+            self.color_info.append(ColorInfo(hex_val.strip(), name.strip(),
                                              red, green, blue,
                                              hue, saturation, lightness))
 
