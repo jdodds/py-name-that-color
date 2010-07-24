@@ -28,4 +28,19 @@ setup(
     url="http://github.com/jdodds/py-name-that-color",
     download_url="http://github.com/downloads/jdodds/py-name-that-color/NameThatColor-1.0.tar.gz",
     zip_safe=True,
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Environment :: Console',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: BSD License',
+        'Natural Language :: English',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 2.6',
+        'Topic :: Artistic Software',
+        'Topic :: Multimedia',
+        'Topic :: Multimedia :: Graphics',
+        'Topic :: Printing',
+        'Topic :: Text Processing :: Markup :: HTML',
+        'Topic :: Utilities'
+    ]
 )
