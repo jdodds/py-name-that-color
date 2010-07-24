@@ -1,0 +1,5 @@
+one of:
+    pip install namethatcolor
+    easy_install namethatcolor
+    python setup.py install
+
