@@ -7,7 +7,7 @@ Usage
 
 + As a library:
 
-    \>\>\> from NameThatColor import NameThatColor
+    \>\>\> from namethatcolor import NameThatColor
     
     \>\>\> Namer = NameThatColor()
     
