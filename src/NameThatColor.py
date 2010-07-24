@@ -7,7 +7,7 @@ Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the conditions in LICENSE.txt are met
 """
 from collections import namedtuple
-
+import os
 ColorInfo = namedtuple('ColorInfo',
                        ' '.join(['hex_value', 'name', 'red', 'green', 'blue',
                                  'hue', 'saturation', 'lightness']))
@@ -26,12 +26,13 @@ class NameThatColor(object):
 
         colorfile = colorfile or resource_filename(__name__, 'data/colors.csv')
         self.color_info = []
+
         reader = csv.reader(open(colorfile))
 
         for hex_val, name in reader:
-            red, green, blue = self.rgb(hex_val)
-            hue, saturation, lightness = self.hsl(hex_val)
-            self.color_info.append(ColorInfo(hex_val, name,
+            red, green, blue = self.rgb(hex_val.strip())
+            hue, saturation, lightness = self.hsl(hex_val.strip())
+            self.color_info.append(ColorInfo(hex_val.strip(), name.strip(),
                                              red, green, blue,
                                              hue, saturation, lightness))
 
@@ -132,21 +133,48 @@ def main():
     import json
     import argparse
 
+    output_choices = {
+        'match_hex': lambda m: m.hex_value,
+        'match_name': lambda m: m.name,
+        'is_exact': lambda m: m.exact,
+        'original_hex': lambda m: m.original
+    }
 
+    format_choices = {
+        'json': lambda r: json.dumps(r),
+        'raw' : lambda r: r
+    }
+    
     parser = argparse.ArgumentParser(
         description="Find the closest known color name for a hex value")
 
     parser.add_argument('-c', '--colors', dest='colors_file',
-
                         help="a csv file of known color name definitions")
 
     parser.add_argument('target',
                         help="hex value of the color to search for")
 
+    parser.add_argument('-o', '--output',
+                        dest="output",
+                        nargs='*',
+                        choices=output_choices.keys(),
+                        default=['match_hex', 'match_name'],
+                        help="what information about the color match to output")
+
+    parser.add_argument('--format',
+                        dest="format",
+                        choices=format_choices.keys(),
+                        default="json",
+                        help="what format to return data in")
+
     args = parser.parse_args()
 
     Namer = NameThatColor(args.colors_file)
-    print json.dumps(Namer.name(args.target))    
+    match = Namer.name(args.target)
+    result = {}
+    for choice in args.output:
+        result[choice] = output_choices[choice](match)
+    print format_choices[args.format](result)
 
 if __name__ == '__main__':
     main()
