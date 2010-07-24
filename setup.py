@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.6
 
 import distribute_setup
 distribute_setup.use_setuptools()
@@ -7,27 +7,24 @@ from setuptools import setup, find_packages
 
 setup(
     name="NameThatColor",
-    version="1.0",
-    packages=find_packages('src'),
-    package_dir = {'':'src'},
+    version="1.0.1",
+    packages=find_packages(),
     entry_points = {
         'console_scripts' : [
             'namethatcolor = NameThatColor:main'
         ]
     },
-    scripts = ['src/NameThatColor.py'],
+    scripts = ['namethatcolor/NameThatColor.py'],
     install_requires = ['argparse>=1.1'],
-    package_data = {
-        'data': 'colors.csv'
-    },
+    include_package_data = True,
     author = "Jeremiah Dodds",
     author_email = "jeremiah.dodds@gmail.com",
     description = "Find human-readable color names for hex values",
-    license="BSD",
+    long_description=open('README.txt').read(),
+    license="LICENSE.txt",
     keywords="color colors webcolor hex css html hue saturation lightness red green blue",
     url="http://github.com/jdodds/py-name-that-color",
-    download_url="http://github.com/downloads/jdodds/py-name-that-color/NameThatColor-1.0.tar.gz",
-    zip_safe=True,
+    download_url="http://github.com/jdodds/py-name-that-color/downloads",
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',

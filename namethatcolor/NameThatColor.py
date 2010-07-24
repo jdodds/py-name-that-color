@@ -24,7 +24,7 @@ class NameThatColor(object):
         import csv
         from pkg_resources import resource_filename
 
-        colorfile = colorfile or resource_filename(__name__, 'data/colors.csv')
+        colorfile = colorfile or resource_filename('namethatcolor', 'data/colors.csv')
         self.color_info = []
 
         reader = csv.reader(open(colorfile))
