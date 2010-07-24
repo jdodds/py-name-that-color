@@ -6,14 +6,22 @@ Usage
 =====
 
 + As a library:
-    >>> from NameThatColor import NameThatColor
-    >>> Namer = NameThatColor()
-    >>> Namer.name('FFFFFF')
+    \>\>\> from NameThatColor import NameThatColor
+    
+    \>\>\> Namer = NameThatColor()
+    
+    \>\>\> Namer.name('FFFFFF')
+    
     Match(hex_value='#FFFFFF', name='White', exact=True, original='#FFFFFF')
-    >>> Namer.name('#FFFFFF')
+    
+    \>\>\> Namer.name('#FFFFFF')
+    
     Match(hex_value='#FFFFFF', name='White', exact=True, original='#FFFFFF')
-    >>> Namer.name('aabbcc')
+    
+    \>\>\> Namer.name('aabbcc')
+    
     Match(hex_value='#ADBED1', name='Casper', exact=False, original='#AABBCC')
 + As a program:
     $ namethatcolor ffffff
+    
     {"match_hex": "#FFFFFF", "match_name": "White"}
