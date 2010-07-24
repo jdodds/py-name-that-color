@@ -6,6 +6,7 @@ Usage
 =====
 
 + As a library:
+
     \>\>\> from NameThatColor import NameThatColor
     
     \>\>\> Namer = NameThatColor()
