@@ -1,13 +1,21 @@
 #!/usr/bin/env python
+"""
+name_that_color.py -- find names for hex colors
+"""
 from collections import namedtuple
 
 ColorInfo = namedtuple('ColorInfo',
-                       'hex_value name red green blue hue saturation lightness')
-Match = namedtuple('Match', 'hex_value name exact original')
-RGB = namedtuple('RGB', 'red green blue')
-HSL = namedtuple('HSL', 'hue saturation lightness')
+                       ' '.join(['hex_value', 'name', 'red', 'green', 'blue',
+                                 'hue', 'saturation', 'lightness']))
+Match = namedtuple('Match', ' '.join(['hex_value', 'name', 'exact',
+                                      'original']))
+RGB = namedtuple('RGB', ' '.join(['red', 'green', 'blue']))
+HSL = namedtuple('HSL', ' '.join(['hue', 'saturation', 'lightness']))
+
 
 class NameThatColor(object):
+    """Utility for finding the closest "human readable" name for a hex color
+    """
     def __init__(self, colorfile):
         import csv
         self.color_info = []
@@ -20,6 +28,8 @@ class NameThatColor(object):
                                              hue, saturation, lightness))
 
     def name(self, color):
+        """Return the closest human readable name given a color
+        """
         color = color.upper()
 
         if not 3 < len(color) < 8:
@@ -38,7 +48,7 @@ class NameThatColor(object):
         ndf1 = 0
         ndf2 = 0
         ndf = 0
-        the_color = False
+        the_color = Match(None, None, None, None)
         df = -1
 
         for info in self.color_info:
@@ -57,20 +67,27 @@ class NameThatColor(object):
                 df = ndf
                 the_color = info
 
-        
-        if not the_color:
+        if not the_color.name:
             return Match("#000000", "Invalid Color", False, color)
         else:
             return Match(the_color.hex_value,
                          the_color.name,
                          False,
                          color)
-                             
+
     def rgb(self, color):
+        """Given a hex string representing a color, return an object with
+        values representing red, green, and blue.
+        """
         return RGB(int(color[1:3], 16),
                    int(color[3:5], 16),
                    int(color[5:7], 16))
+
     def hsl(self, color):
+        """Given a hex string representing a color, return an object with
+        attributes representing hue, lightness, and saturation.
+        """
+
         red, green, blue = self.rgb(color)
 
         red /= 255.0
@@ -82,12 +99,12 @@ class NameThatColor(object):
         delta = max_color - min_color
         lightness = (min_color + max_color) / 2
 
-        saturation = 0;
+        saturation = 0
         sat_mod = ((2 * lightness) if lightness < 0.5 else (2 - 2 * lightness))
-        
+
         if 0 < lightness < 1:
             saturation = (delta / sat_mod)
-                  
+
         hue = 0
 
         if delta > 0:
@@ -98,28 +115,28 @@ class NameThatColor(object):
             if max_color == blue and max_color != red:
                 hue += (4 + (red - green) / delta)
             hue /= 6
-            
+
         return HSL(int(hue * 255),
                    int(saturation * 255),
                    int(lightness * 255))
 
 if __name__ == '__main__':
-    import os, json, sys, argparse
+    import os.path as path
+    import json
+    import argparse
 
     parser = argparse.ArgumentParser(
-        description="Find the closest known human readable color name for a hex value")
+        description="Find the closest known color name for a hex value")
 
     parser.add_argument('-c', '--colors', dest='colors_file',
-                        default=os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                             'data', 'colors.csv'),
-                        help="a csv file containing known color name definitions")
+                        default=path.join(path.dirname(path.abspath(__file__)),
+                                          'data', 'colors.csv'),
+                        help="a csv file of known color name definitions")
 
     parser.add_argument('target',
                         help="hex value of the color to search for")
 
     args = parser.parse_args()
 
-    
     Namer = NameThatColor(args.colors_file)
     print json.dumps(Namer.name(args.target))
-    
