@@ -188,7 +188,7 @@ def main():
         from pkg_resources import Requirement, resource_filename
         colors_file = resource_filename(
             Requirement.parse('namethatcolor'),
-            'data/%s' % color_set_choices[args.color_set]
+            'namethatcolor/data/%s' % color_set_choices[args.color_set]
         )
         
     Namer = NameThatColor(colors_file)

@@ -7,8 +7,14 @@ from setuptools import setup, find_packages
 
 setup(
     name="NameThatColor",
-    version="1.0.1",
-    packages=find_packages(),
+    version="1.0.2",
+    packages=['namethatcolor'],
+    package_dir = {
+        'namethatcolor': 'namethatcolor'
+    },
+    package_data = {
+    'namethatcolor': ['*.txt', 'namethatcolor/data/*.csv']
+    },
     entry_points = {
         'console_scripts' : [
             'namethatcolor = NameThatColor:main'
@@ -16,7 +22,6 @@ setup(
     },
     scripts = ['namethatcolor/NameThatColor.py'],
     install_requires = ['argparse>=1.1'],
-    include_package_data = True,
     author = "Jeremiah Dodds",
     author_email = "jeremiah.dodds@gmail.com",
     description = "Find human-readable color names for hex values",
