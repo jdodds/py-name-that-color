@@ -7,7 +7,7 @@ Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the conditions in LICENSE.txt are met
 """
 from collections import namedtuple
-import os
+
 ColorInfo = namedtuple('ColorInfo',
                        ' '.join(['hex_value', 'name', 'red', 'green', 'blue',
                                  'hue', 'saturation', 'lightness']))
@@ -130,6 +130,10 @@ class NameThatColor(object):
                    int(lightness * 255))
 
 def main():
+    """Entry point for NameThatColor.py.
+    Parse options, and find that color.
+    """
+
     import json
     import argparse
 
