@@ -1,2 +1,7 @@
 Sat Jul 24 13:20:02 EDT 2010
     getting package to actually install.
+Tue Sep 14 20:05:11 EDT 2010
+    Color sets are now in different files, one each for resene, css3, and
+    html4. css3 is a superset of html4. The user is now required to either
+    choose an existing set, or provide a csv file of their own for matching when
+    calling namethatcolor.
