@@ -5,3 +5,9 @@ Tue Sep 14 20:05:11 EDT 2010
     html4. css3 is a superset of html4. The user is now required to either
     choose an existing set, or provide a csv file of their own for matching when
     calling namethatcolor.
+Sat Sep 25 00:37:01 EDT 2010
+    Updated documentation, provided a default argument for NameThatColor.
+Sat Sep 25 13:42:00 EDT 2010
+    Moved matches to their own object, choices for formatting/possible
+    colorsets/etc to class variables
+
