@@ -118,8 +118,8 @@ class NameThatColor(object):
             Match.default_output = output
 
         with open(color_file, 'r') as color_handle:
-            for line in filter(lambda l: l.startswith('#'),
-                               color_handle.readlines()):
+            for line in [l for l in color_handle.readlines()
+                         if  l.startswith('#')]:
                 #there may be commas in names. this is a little sloppy.
                 parts = line.split(',')
                 hex_val = parts[0]
