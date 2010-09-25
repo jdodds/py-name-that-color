@@ -73,15 +73,15 @@ class Match(object):
 
     outputs = ['hex_value', 'name', 'exact', 'original']
 
-    def __init__(self, hex_value, name, exact, original, format=None,
+    def __init__(self, hex_value, name, exact, original, format_type=None,
                  output=None):
-        if format is None:
-            format = self.default_format
+        if format_type is None:
+            format_type = self.default_format
         if output is None:
             output = self.default_output
 
         self.output = output
-        self.format = format
+        self.format_type = format_type
         self.hex_value = hex_value
         self.name = name
         self.exact = exact
@@ -92,7 +92,7 @@ class Match(object):
             self.hex_value, self.name, self.exact, self.original)
 
     def __str__(self):
-        return self.formats[self.format](self)
+        return self.formats[self.format_type](self)
 
 class NameThatColor(object):
     """Utility for finding the closest "human readable" name for a hex color
