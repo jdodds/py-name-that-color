@@ -1,2 +1,2 @@
 #!/usr/bin/env python
-from NameThatColor import NameThatColor
+from NameThatColor import NameThatColor, Match
