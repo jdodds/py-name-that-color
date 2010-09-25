@@ -60,6 +60,8 @@ RGB = namedtuple('RGB', ' '.join(['red', 'green', 'blue']))
 HSL = namedtuple('HSL', ' '.join(['hue', 'saturation', 'lightness']))
 
 class Match(object):
+    """Provide a representation of the color match found for a hex string.
+    """
     default_format = 'json'
     default_output = ['hex_value', 'name']
 
@@ -130,6 +132,8 @@ class NameThatColor(object):
                                                  hue, saturation, lightness))
     @classmethod
     def get_color_file(cls, color_file):
+        """Find the package resource for a color file.
+        """
         from pkg_resources import Requirement, resource_filename
         return resource_filename(
             Requirement.parse('namethatcolor'),
