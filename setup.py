@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="NameThatColor",
-    version="1.0.2",
+    version="1.0.3",
     packages=['namethatcolor'],
     package_dir = {
         'namethatcolor': 'namethatcolor'
@@ -34,6 +34,7 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
         'Intended Audience :: Developers',
+        'Intended Audience :: End Users/Desktop',
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
         'Operating System :: OS Independent',
